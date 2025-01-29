@@ -1,0 +1,16 @@
+name: Validate and Test Python Package
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  dg-metadata-validation:
+    if: github.event_name == 'push' && github.ref != 'refs/head/main'
+    uses: sensirion/.github/.github/workflows/driver.generated.metadata_check.yml@main
+
+  test:
+    uses: sensirion/.github/.github/workflows/driver.python.test.yml@main
