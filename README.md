@@ -28,7 +28,7 @@ The following instructions and examples use a *SCD41*.
 
 ## Connect the sensor
 
-You can connect your sensor over a [SEK-SensorBridge](https://developer.sensirion.com/sensirion-product/sek-sensorbridge/).
+You can connect your sensor over a [SEK-SensorBridge](https://developer.sensirion.com/product-support/sek-sensorbridge/).
 For special setups you find the sensor pinout in the section below.
 
 <details><summary>Sensor pinout</summary>
