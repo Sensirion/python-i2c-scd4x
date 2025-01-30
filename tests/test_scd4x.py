@@ -7,10 +7,12 @@
 #
 # Generator:     sensirion-driver-generator 1.1.2
 # Product:       scd4x
-# Model-Version: 1.0
+# Model-Version: 2.0
 #
 
 import pytest
+import time
+from sensirion_i2c_driver.errors import I2cNackError
 from sensirion_i2c_scd4x.device import Scd4xDevice
 
 
@@ -147,26 +149,26 @@ def test_measure_and_read_single_shot1(sensor):
 
 def test_measure_single_shot_rht_only1(sensor):
     sensor.measure_single_shot_rht_only()
-
-
-def test_measure_single_shot1(sensor):
-    sensor.measure_single_shot()
-
-
-def test_start_periodic_measurement1(sensor):
-    sensor.start_periodic_measurement()
     (a_co2_concentration, a_temperature, a_relative_humidity
      ) = sensor.read_measurement()
     print(f"a_co2_concentration: {a_co2_concentration}; "
           f"a_temperature: {a_temperature}; "
           f"a_relative_humidity: {a_relative_humidity}; "
           )
-    (co2_concentration, temperature, relative_humidity
-     ) = sensor.read_measurement_raw()
-    print(f"co2_concentration: {co2_concentration}; "
-          f"temperature: {temperature}; "
-          f"relative_humidity: {relative_humidity}; "
+
+
+def test_start_periodic_measurement1(sensor):
+    sensor.start_periodic_measurement()
+    while not sensor.get_data_ready_status():
+        # wait until data is ready to be read out
+        time.sleep(1)
+    (a_co2_concentration, a_temperature, a_relative_humidity
+     ) = sensor.read_measurement()
+    print(f"a_co2_concentration: {a_co2_concentration}; "
+          f"a_temperature: {a_temperature}; "
+          f"a_relative_humidity: {a_relative_humidity}; "
           )
+    # read_measurement_raw is implicitly tested with read_measurement
     sensor.set_ambient_pressure(101300)
     a_ambient_pressure = sensor.get_ambient_pressure()
     print(f"a_ambient_pressure: {a_ambient_pressure}; "
@@ -186,18 +188,16 @@ def test_start_periodic_measurement1(sensor):
 
 def test_start_low_power_periodic_measurement1(sensor):
     sensor.start_low_power_periodic_measurement()
+    while not sensor.get_data_ready_status():
+        # wait until data is ready to be read out
+        time.sleep(1)
     (a_co2_concentration, a_temperature, a_relative_humidity
      ) = sensor.read_measurement()
     print(f"a_co2_concentration: {a_co2_concentration}; "
           f"a_temperature: {a_temperature}; "
           f"a_relative_humidity: {a_relative_humidity}; "
           )
-    (co2_concentration, temperature, relative_humidity
-     ) = sensor.read_measurement_raw()
-    print(f"co2_concentration: {co2_concentration}; "
-          f"temperature: {temperature}; "
-          f"relative_humidity: {relative_humidity}; "
-          )
+    # read_measurement_raw is implicitly tested with read_measurement
     sensor.set_ambient_pressure(101300)
     a_ambient_pressure = sensor.get_ambient_pressure()
     print(f"a_ambient_pressure: {a_ambient_pressure}; "
@@ -214,3 +214,23 @@ def test_start_low_power_periodic_measurement1(sensor):
           )
     sensor.stop_periodic_measurement()
 
+
+@pytest.mark.needs_hardware
+def test_sleep_mode(sensor):
+    """
+    Test power down and wake up commands
+    """
+    sensor.power_down()
+    try:
+        sensor.get_data_ready_status()
+    except I2cNackError:
+        assert True
+    else:
+        assert False, "SCD4x should respond with NACK when in sleep mode"
+    sensor.wake_up()
+    try:
+        sensor.get_data_ready_status()
+    except I2cNackError:
+        assert False, "SCD4x should respond after wake up"
+    else:
+        assert True

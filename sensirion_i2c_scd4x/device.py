@@ -7,7 +7,7 @@
 #
 # Generator:     sensirion-driver-generator 1.1.2
 # Product:       scd4x
-# Model-Version: 1.0
+# Model-Version: 2.0
 #
 """
 The class Scd4xDeviceBase implements the low level interface of the sensor.

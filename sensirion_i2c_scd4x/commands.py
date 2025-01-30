@@ -7,7 +7,7 @@
 #
 # Generator:     sensirion-driver-generator 1.1.2
 # Product:       scd4x
-# Model-Version: 1.0
+# Model-Version: 2.0
 #
 """
 The transfer classes specify the data that is transferred between host and sensor. The generated transfer classes
@@ -320,7 +320,7 @@ class GetSerialNumber(Transfer):
         return self.tx_data.pack([])
 
     tx = TxData(CMD_ID, '>H', device_busy_delay=0.001, slave_address=None, ignore_ack=False)
-    rx = RxData('>3H')
+    rx = RxData('>3H', convert_to_int=True)
 
 
 class PerformSelfTest(Transfer):
