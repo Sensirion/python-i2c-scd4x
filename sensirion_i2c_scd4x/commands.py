@@ -320,7 +320,7 @@ class GetSerialNumber(Transfer):
         return self.tx_data.pack([])
 
     tx = TxData(CMD_ID, '>H', device_busy_delay=0.001, slave_address=None, ignore_ack=False)
-    rx = RxData('>3H')
+    rx = RxData('>3H', convert_to_int=True)
 
 
 class PerformSelfTest(Transfer):
