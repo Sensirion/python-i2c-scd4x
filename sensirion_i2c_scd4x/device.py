@@ -388,6 +388,7 @@ class Scd4xDeviceBase:
         :return sensor_variant:
             Bits[15…12] = 0000 → SCD40
             Bits[15…12] = 0001 → SCD41
+            Bits[15…12] = 0101 → SCD43
 
         .. note::
             This command is only available in idle mode.
@@ -628,13 +629,19 @@ class Scd4xDevice(Scd4xDeviceBase):
         .. note::
             This command is only available in idle mode.
         """
+        ret_val = SensorVariant.MASK
+        mask = int(ret_val)
         raw_sensor_variant = self.scd4x.get_sensor_variant_raw()
-        variant = raw_sensor_variant & 4
-        if variant == 0:
-            return SensorVariant.SCD40
-        elif variant == 1:
-            return SensorVariant.SCD41
-        return SensorVariant.UNKNOWN
+        my_sensor_variant = int(raw_sensor_variant & mask)
+        if my_sensor_variant == int(SensorVariant.SCD40):
+            ret_val = SensorVariant.SCD40
+        elif my_sensor_variant == int(SensorVariant.SCD41):
+            ret_val = SensorVariant.SCD41
+        elif my_sensor_variant == int(SensorVariant.SCD42):
+            ret_val = SensorVariant.SCD42
+        elif my_sensor_variant == int(SensorVariant.SCD43):
+            ret_val = SensorVariant.SCD43
+        return ret_val
 
     def measure_and_read_single_shot(self):
         """

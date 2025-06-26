@@ -502,9 +502,11 @@ class GetAutomaticSelfCalibrationStandardPeriod(Transfer):
 
 
 class SensorVariant(Enum):
-    UNKNOWN = 0
-    SCD40 = 1
-    SCD41 = 2
+    MASK = 61440
+    SCD40 = 0
+    SCD41 = 4096
+    SCD42 = 8192
+    SCD43 = 20480
 
     def __int__(self):
         return self.value
