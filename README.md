@@ -2,11 +2,11 @@
 
 This repository contains the Python driver to communicate with a Sensirion sensor of the SCD4X family over I2C.
 
-<img src="https://raw.githubusercontent.com/Sensirion/python-i2c-scd4x/master/images/SCD41.png"
+<img src="https://raw.githubusercontent.com/Sensirion/python-i2c-scd4x/master/images/SCD4x.png"
     width="300px" alt="SCD4X picture">
 
 
-Click [here](https://sensirion.com/products/catalog/SEK-SCD41) to learn more about the Sensirion SCD4X sensor family.
+Click [here](https://sensirion.com/products/catalog/SEK-SCD43) to learn more about the Sensirion SCD4X sensor family.
 
 
 Not all sensors of this driver family support all measurements.
@@ -21,9 +21,10 @@ support it are listed in the API description.
 | ------------- | -------------- |
 |[SCD40](https://sensirion.com/products/catalog/SCD40)| **0x62**|
 |[SCD41](https://sensirion.com/products/catalog/SCD41)| **0x62**|
+|[SCD42](https://sensirion.com/products/catalog/SCD42)| **0x62**|
 |[SCD43](https://sensirion.com/products/catalog/SCD43)| **0x62**|
 
-The following instructions and examples use a *SCD41*.
+The following instructions and examples use a *SCD43*.
 
 
 
@@ -34,15 +35,15 @@ For special setups you find the sensor pinout in the section below.
 
 <details><summary>Sensor pinout</summary>
 <p>
-<img src="https://raw.githubusercontent.com/Sensirion/python-i2c-scd4x/master/images/SCD41_pinout.png"
+<img src="https://raw.githubusercontent.com/Sensirion/python-i2c-scd4x/master/images/SCD4x_pinout.png"
      width="300px" alt="sensor wiring picture">
 
 | *Pin* | *Cable Color* | *Name* | *Description*  | *Comments* |
 |-------|---------------|:------:|----------------|------------|
-| 1 | yellow | SCL | I2C: Serial clock input |
-| 2 | black | GND | Ground |
-| 3 | red | VDD | Supply Voltage | 2.4V to 5.5V
-| 4 | green | SDA | I2C: Serial data input / output |
+| 1 | black | GND | Ground |
+| 2 | red | VDD | Supply Voltage | 2.4V to 5.5V
+| 3 | green or blue | SDA | I2C: Serial data input / output |
+| 4 | yellow | SCL | I2C: Serial clock input |
 
 
 </p>
