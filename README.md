@@ -53,27 +53,12 @@ For special setups you find the sensor pinout in the section below.
 ## Documentation & Quickstart
 
 See the [documentation page](https://sensirion.github.io/python-i2c-scd4x) for an API description and a
-[quickstart](https://sensirion.github.io/python-i2c-scd4x/execute-measurements.html) example.
+[quickstart](https://sensirion.github.io/python-i2c-scd4x/quickstart.html) example.
 
 
 ## Contributing
 
-### Check coding style
-
-The coding style can be checked with [`flake8`](http://flake8.pycqa.org/):
-
-```bash
-pip install -e .[test]  # Install requirements
-flake8                  # Run style check
-```
-
-In addition, we check the formatting of files with
-[`editorconfig-checker`](https://editorconfig-checker.github.io/):
-
-```bash
-pip install editorconfig-checker==2.0.3   # Install requirements
-editorconfig-checker                      # Run check
-```
+In case you want to contribute to this project, please read the [contribution guidelines]((https://sensirion.github.io/python-i2c-scd4x/contributing.html)).
 
 ## License
 

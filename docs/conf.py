@@ -4,11 +4,14 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+
 import os
 import sys
 from datetime import datetime
 
-import pkg_resources
+import importlib.metadata as metadata
+import sphinx_tabs.tabs
+
 import sphinx.ext.autodoc
 
 import sensirion_i2c_scd4x
@@ -17,16 +20,16 @@ import sensirion_i2c_scd4x
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # -- Project information -----------------------------------------------------
-distribution = pkg_resources.get_distribution('sensirion_i2c_scd4x')
+distribution = metadata.distribution("sensirion_i2c_scd4x")
 
-project = u'sensirion_i2c_scd4x'
+project = distribution.name
 copyright = u'{} Sensirion AG, Switzerland'.format(datetime.now().year)
 author = 'Sensirion AG'
 
 # The short X.Y version
-version = sensirion_i2c_scd4x.__version__
+version = distribution.version
 # The full version, including alpha/beta/rc tags
-release = sensirion_i2c_scd4x.__version__
+release = distribution.version
 
 # -- General configuration ---------------------------------------------------
 
@@ -36,6 +39,7 @@ release = sensirion_i2c_scd4x.__version__
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinx_tabs.tabs',
     'sphinx.ext.inheritance_diagram',
     'sphinx.ext.githubpages',
     'sphinx.ext.intersphinx',
